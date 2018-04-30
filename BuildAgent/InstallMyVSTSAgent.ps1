@@ -172,6 +172,15 @@ else
   .\config.cmd --unattended --url $serverUrl --auth PAT --token $PersonalAccessToken --pool $PoolName --agent $AgentName --runasservice
 }
 
+Pop-Location
+
+Write-Verbose "Agent install output: $LASTEXITCODE" -Verbose
+
+Write-Verbose "Installing PoshSSDTBuildDeploy from PowerShell Gallery..." -Verbose
+Install-Module PoshSSDTBuildDeploy -Force
+
+Write-Verbose "Installing Azure RM from PowerShell Gallery..." -Verbose
+Install-Module AzureRM -Force
 
 #deploy 4.7.1
 Function Test-NetInstalled {
@@ -275,24 +284,3 @@ if ($whatIsInstalled -ne "4.7.1") {
     Install-Net471 -WorkingFolder $agentInstallationPath -uri $net471sdk
     Install-Net471 -WorkingFolder $agentInstallationPath -uri $net471
 }
-
-Pop-Location
-
-Write-Verbose "Agent install output: $LASTEXITCODE" -Verbose
-
-Write-Verbose "Installing PoshSSDTBuildDeploy from PowerShell Gallery..." -Verbose
-
-Install-PackageProvider -Name NuGet -Force
-Install-Module PoshSSDTBuildDeploy -Force
-
-Write-Verbose "Installing Azure RM from PowerShell Gallery..." -Verbose
-
-Install-PackageProvider -Name NuGet -Force
-Install-Module AzureRM -Force
-
-Write-Verbose "Installing Azure RM Event Hub from PowerShell Gallery..." -Verbose
-
-Install-PackageProvider -Name NuGet -Force
-Install-Module -Name AzureRM.EventHub -Force
-
-Write-Verbose "Exiting InstallVSTSAgent.ps1" -Verbose
