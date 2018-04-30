@@ -174,14 +174,6 @@ else
 
 Pop-Location
 
-Write-Verbose "Agent install output: $LASTEXITCODE" -Verbose
-
-Write-Verbose "Installing PoshSSDTBuildDeploy from PowerShell Gallery..." -Verbose
-Install-Module PoshSSDTBuildDeploy -Force
-
-Write-Verbose "Installing Azure RM from PowerShell Gallery..." -Verbose
-Install-Module AzureRM -Force
-
 #deploy 4.7.1
 Function Test-NetInstalled {
     
