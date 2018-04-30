@@ -218,7 +218,7 @@
       },
       "resources": [
         {
-          "name": "CustomScript",
+          "name": "InstallVSTSAgent",
           "type": "extensions",
           "location": "[resourceGroup().location]",
           "apiVersion": "2015-05-01-preview",
@@ -240,7 +240,7 @@
 
 
         {
-          "name": "CustomScript",
+          "name": "InstallNet471",
           "type": "extensions",
           "location": "[resourceGroup().location]",
           "apiVersion": "2015-05-01-preview",
@@ -253,7 +253,7 @@
             "typeHandlerVersion": "1.4",
             "settings": {
               "fileUris": [
-                "[concat(parameters('_artifactsLocation'),'/.ps1')]"
+                "[concat(parameters('_artifactsLocation'),'//InstallDotNet471.ps1')]"
               ],
               "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -Command .\\InstallDotNet471.ps1')]"
             }
