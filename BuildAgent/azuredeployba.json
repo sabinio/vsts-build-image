@@ -236,7 +236,35 @@
               "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -Command .\\InstallMyVSTSAgent.ps1 -vstsAccount ', parameters('vstsAccount'), ' -personalAccessToken ', parameters('personalAccessToken'), ' -AgentName ', parameters('vmName'), ' -PoolName ', parameters('poolName'), ' -runAsAutoLogon ', parameters('enableAutologon'), ' -vmAdminUserName ', parameters('vmAdminUserName'), ' -vmAdminPassword ', parameters('vmAdminPassword'))]"
             }
           }
+        },
+
+
+        {
+          "name": "CustomScript",
+          "type": "extensions",
+          "location": "[resourceGroup().location]",
+          "apiVersion": "2015-05-01-preview",
+          "dependsOn": [
+            "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'))]"
+          ],
+          "properties": {
+            "publisher": "Microsoft.Compute",
+            "type": "CustomScriptExtension",
+            "typeHandlerVersion": "1.4",
+            "settings": {
+              "fileUris": [
+                "[concat(parameters('_artifactsLocation'),'/.ps1')]"
+              ],
+              "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -Command .\\InstallDotNet471.ps1')]"
+            }
+          }
         }
+
+
+
+
+
+
       ]
     },
     {

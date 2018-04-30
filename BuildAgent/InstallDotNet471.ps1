@@ -96,8 +96,14 @@ function Install-Net471 {
 $GetDotNetVersion = Test-NetInstalled
 $whatIsInstalled = $GetDotNetVersion.DotNetVersion
 if ($whatIsInstalled -ne "4.7.1") {
+
+
+    $agentTempFolderName = Join-Path $env:temp ([System.IO.Path]::GetRandomFileName())
+    New-Item -ItemType Directory -Force -Path $agentTempFolderName
+    Write-Verbose "Temporary Agent download folder: $agentTempFolderName" -verbose
+
     $net471sdk = "https://download.microsoft.com/download/9/0/1/901B684B-659E-4CBD-BEC8-B3F06967C2E7/NDP471-DevPack-ENU.exe"
     $net471 = "https://download.microsoft.com/download/9/E/6/9E63300C-0941-4B45-A0EC-0008F96DD480/NDP471-KB4033342-x86-x64-AllOS-ENU.exe"
-    Install-Net471 -WorkingFolder $agentInstallationPath -uri $net471sdk
-    Install-Net471 -WorkingFolder $agentInstallationPath -uri $net471
+    Install-Net471 -WorkingFolder $agentTempFolderName -uri $net471sdk
+    Install-Net471 -WorkingFolder $agentTempFolderName -uri $net471
 }
